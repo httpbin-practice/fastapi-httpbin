@@ -1,31 +1,34 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
+from base import get_base_resp
 
 methods_router = APIRouter(prefix="", tags=["methods"])
 
 
+
+
 @methods_router.get("/get")
-async def get():
-    return "get"
+async def get(request:Request):
+    return get_base_resp(request)
 
 
 @methods_router.get("/post")
-async def post():
-    return "post"
+async def post(request:Request):
+    return get_base_resp(request)
 
 
 @methods_router.get("/patch")
-async def patch():
-    return "patch"
+async def patch(request:Request):
+    return get_base_resp(request)
 
 
 @methods_router.get("/option")
-async def option():
-    return "option"
+async def option(request:Request):
+    return get_base_resp(request)
 
 
 @methods_router.get("/delete")
-async def delete():
-    return "delete"
+async def delete(request:Request):
+    return get_base_resp(request)
 
 
 @methods_router.get("/head")
