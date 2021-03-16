@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Request
+from fastapi.middleware.gzip import GZipMiddleware
 from status_code import status_router
 from methods import methods_router
 from anything import anything_router
@@ -17,6 +18,9 @@ app = FastAPI(
     version="0.1.0",
 )
 
+app.add_middleware(GZipMiddleware, minimum_size=0)
+
+
 app.include_router(methods_router)
 app.include_router(status_router)
 app.include_router(images_router)
@@ -28,3 +32,7 @@ app.include_router(cookies_router)
 app.include_router(dynamic_data_router)
 app.include_router(auth_router)
 app.include_router(anything_router)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app",headers=[("server","FastAPI-HTTPBIN")], host="0.0.0.0", port=8000, reload=True)

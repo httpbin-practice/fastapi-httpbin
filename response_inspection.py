@@ -1,7 +1,8 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,Response
 
 response_inspect_router = APIRouter(prefix="/response_inspect", tags=["response inspection"])
 
+CACHE = {}
 
 @response_inspect_router.get("/cache")
 async def get_response_cache():
@@ -19,10 +20,11 @@ async def get_response_etag():
 
 
 @response_inspect_router.get("/response-headers")
-async def get_response_headers():
-    return "get_response_headers"
+async def get_response_headers(response:Response):
+    return {"headers": response.headers}
 
 
 @response_inspect_router.post("/response-headers")
 async def post_response_headers():
-    return "post_response_headers"
+    return {"headers": response.headers}
+
